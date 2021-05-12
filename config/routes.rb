@@ -2,11 +2,10 @@ Rails.application.routes.draw do
   root 'home#index'
   namespace :api do
     namespace :v1 do
-      get 'sessions/new'
-      get 'sessions/create'
-      get 'sessions/destroy'
       resources :users
-      resources :sessions, only: [:new, :create, :destroy]  
+      resources :sessions, only: [:new, :create, :destroy]
+      resources :jobs
+      resources :apps  
       get 'signup', to: 'users#new', as: 'signup'
       get 'login', to: 'sessions#new', as: 'login'
       get 'logout', to: 'sessions#destroy', as: 'logout'
