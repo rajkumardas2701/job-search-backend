@@ -23,7 +23,7 @@ class Api::V1::JobsController < ApplicationController
 
   private
 
-   def set_job
+  def set_job
     @job = Job.find(params[:id])
-   end
+  end
 end

@@ -1,5 +1,4 @@
 class Api::V1::AppsController < ApplicationController
-
   def index
   end
 
