@@ -3,17 +3,36 @@ class Api::V1::SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by_email(params[:email])
-    if user && user.authenticate(params[:password])
-      session[:user_id] = user.id
-      render json: { message: "User logged in successfully", status: 200 }
+    @user = User.find_by_email(params[:email])
+    if @user && @user.authenticate(params[:password])
+      login!
+      render json: { logged_in: true,
+                     user: @user }
     else
-      render json: { message: "Invalid credentials" }
+      render json: { status: 401,
+                     errors: ['no such user, please try again'] }
+    end
+  end
+
+  def is_logged_in?
+    if logged_in && current_user
+      render json: {
+        logged_in: true,
+        user: current_user
+      }
+    else
+      render json: {
+        logged_in: false,
+        message: 'No such user'
+      }
     end
   end
 
   def destroy
-    session[:user_id] = nil
-    render json: { message: "User logged out successfully" }
+    logout!
+    render json: {
+      status: 200,
+      logged_out: true
+    }
   end
 end
