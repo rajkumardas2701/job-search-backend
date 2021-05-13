@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       post 'signup', to: 'users#create', as: 'signup'
       post 'login', to: 'sessions#create', as: 'login'
       post 'logout', to: 'sessions#destroy', as: 'logout'
-      get 'logged_in' to: 'sessions#is_logged_in?', as: 'logged_in'
+      get 'logged_in', to: 'sessions#is_logged_in?', as: 'logged_in'
     end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
