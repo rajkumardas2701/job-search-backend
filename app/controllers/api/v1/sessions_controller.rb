@@ -3,12 +3,12 @@ class Api::V1::SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by_email(params[:email])
-    if @user && @user.authenticate(params[:password])
+    @user = User.find_by(email: session_params[:email])
+    if @user && @user.authenticate(session_params[:password])
       login!
       render json: { logged_in: true,
                      user: @user,
-                    message: `User has logged in successfully` }
+                     message: `User has logged in successfully` }
     else
       render json: { status: 401,
                      errors: ['no such user, please try again'] }
@@ -36,4 +36,9 @@ class Api::V1::SessionsController < ApplicationController
       logged_out: true
     }
   end
+
+  private
+    def session_params
+      params.require(:user).permit(:email, :password)
+    end
 end

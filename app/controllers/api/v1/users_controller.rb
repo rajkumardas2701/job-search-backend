@@ -35,7 +35,8 @@ class Api::V1::UsersController < ApplicationController
       login!
       render json: {
         status: :created,
-        user: @user
+        user: @user,
+        message: 'User is created'
       }
     else
       render json: {
