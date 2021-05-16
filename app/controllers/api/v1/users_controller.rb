@@ -36,12 +36,12 @@ class Api::V1::UsersController < ApplicationController
       render json: {
         status: :created,
         user: @user,
-        message: 'User is created'
+        message: ['User is created']
       }
     else
       render json: {
         errors: @user.errors.full_messages,
-        status: :unprocessable_entity
+        status: 500,
       }
     end
   end

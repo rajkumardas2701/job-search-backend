@@ -1,6 +1,6 @@
 class Api::V1::SessionsController < ApplicationController
-  def new
-  end
+  # def new
+  # end
 
   def create
     @user = User.find_by(email: session_params[:email])
@@ -8,7 +8,8 @@ class Api::V1::SessionsController < ApplicationController
       login!
       render json: { logged_in: true,
                      user: @user,
-                     message: `User has logged in successfully` }
+                     message: ['User has logged in successfully'],
+                    }
     else
       render json: { status: 401,
                      errors: ['no such user, please try again'] }
@@ -38,7 +39,8 @@ class Api::V1::SessionsController < ApplicationController
   end
 
   private
-    def session_params
-      params.require(:user).permit(:email, :password)
-    end
+
+  def session_params
+    params.require(:user).permit(:email, :password)
+  end
 end
