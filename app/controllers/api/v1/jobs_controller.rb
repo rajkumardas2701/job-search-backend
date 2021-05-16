@@ -3,15 +3,15 @@ class Api::V1::JobsController < ApplicationController
   def index
     @jobs = Job.all
     if @jobs
-        render json: {
-          status: 200,
-          jobs: @jobs,
-        }
+      render json: {
+        status: 200,
+        jobs: @jobs,
+      }
     else
-        render json: {
-          status: 404,
-          message: 'No Job to show',
-        }
+      render json: {
+        status: 404,
+        message: 'No Job to show',
+      }
     end
   end
 
