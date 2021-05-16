@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :get_user, only: [:show, :update, :destroy]
+  before_action :check_user, only: %i[show update destroy]
 
   def index
     @users = User.all
@@ -41,7 +41,7 @@ class Api::V1::UsersController < ApplicationController
     else
       render json: {
         errors: @user.errors.full_messages,
-        status: 500,
+        status: 500
       }
     end
   end
@@ -70,14 +70,14 @@ class Api::V1::UsersController < ApplicationController
     else
       render json: {
         status: 500,
-        message: "Account deletion failed"
+        message: 'Account deletion failed'
       }
     end
   end
 
   private
 
-  def get_user
+  def check_user
     @user = User.find(params[:id])
   end
 
