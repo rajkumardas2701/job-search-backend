@@ -9,7 +9,6 @@ Rails.application.routes.draw do
       post 'login', to: 'sessions#create', as: 'login'
       post 'logout', to: 'sessions#destroy', as: 'logout'
       get 'logged_in', to: 'sessions#is_logged_in?', as: 'logged_in'
-      # get '/users/:user_id', to: 'users#show'
     end
   end
 

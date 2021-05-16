@@ -2,8 +2,17 @@ class Api::V1::JobsController < ApplicationController
   before_action :set_job, only: [:show, :update, :destroy]
   def index
     @jobs = Job.all
-
-    render json: @jobs
+    if @jobs
+        render json: {
+          status: 200,
+          jobs: @jobs,
+        }
+    else
+        render json: {
+          status: 404,
+          message: 'No Job to show',
+        }
+    end
   end
 
   def show
