@@ -1,29 +1,33 @@
 class Api::V1::JobsController < ApplicationController
-  before_action :set_job, only: [:show, :update, :destroy]
+  before_action :set_job, only: %i[show update destroy]
   def index
     @jobs = Job.all
-
-    render json: @jobs
-  end
-
-  def show
-    if @job
-      render json: @job
+    if @jobs
+      render json: {
+        status: 200,
+        jobs: @jobs
+      }
+    else
+      render json: {
+        status: 404,
+        message: 'No Job to show'
+      }
     end
   end
 
-  def create
+  def show
+    render json: @job if @job
   end
 
-  def update
-  end
+  def create; end
 
-  def destroy
-  end
+  def update; end
+
+  def destroy; end
 
   private
 
-   def set_job
+  def set_job
     @job = Job.find(params[:id])
-   end
+  end
 end
