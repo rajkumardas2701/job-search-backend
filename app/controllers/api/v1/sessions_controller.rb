@@ -16,7 +16,7 @@ class Api::V1::SessionsController < ApplicationController
   end
 
   def check_logged_in?
-    if logged_in && current_user
+    if logged_in? && current_user
       render json: {
         logged_in: true,
         user: current_user
