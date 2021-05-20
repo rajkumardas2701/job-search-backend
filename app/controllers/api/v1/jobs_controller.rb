@@ -3,9 +3,11 @@ class Api::V1::JobsController < ApplicationController
   def index
     @jobs = Job.all
     if @jobs
+      j = Job.new
+      filtered = j.get_jobs(set_user)
       render json: {
         status: 200,
-        jobs: @jobs
+        jobs: filtered
       }
     else
       render json: {
