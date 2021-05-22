@@ -10,9 +10,9 @@ class Job < ApplicationRecord
 
   def get_jobs(user)
     if user.user_type == 'Recruiter'
-      jobs = user.jobs
+      user.jobs
     else
-      jobs = Job.all
+      Job.all
     end
   end
 end

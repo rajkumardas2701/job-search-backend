@@ -18,7 +18,18 @@ class Api::V1::JobsController < ApplicationController
   end
 
   def show
-    render json: @job if @job
+    if @job
+      render json: {
+        job: @job,
+        status: 200,
+        message: `#{@job.role} fetched successfully `
+      }
+    else
+      render json: {
+        status: 404,
+        message: 'Could not find that job'
+      }
+    end
   end
 
   def create
@@ -34,7 +45,7 @@ class Api::V1::JobsController < ApplicationController
     else
       render json: {
         errors: @job.errors.full_messages,
-        status: 500,
+        status: 500
       }
     end
   end
