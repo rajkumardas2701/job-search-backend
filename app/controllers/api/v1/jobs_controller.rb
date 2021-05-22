@@ -22,7 +22,7 @@ class Api::V1::JobsController < ApplicationController
       render json: {
         job: @job,
         status: 200,
-        message: `#{@job.role} fetched successfully `
+        message: 'Job fetched successfully'
       }
     else
       render json: {
