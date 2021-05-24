@@ -3,11 +3,9 @@ class App < ApplicationRecord
   belongs_to :job
 
   def app_add
-    user = user_id
-    job = job_id
-    res = App.where(user_id: user, job_id: job)
+    res = App.where(user_id: user_id, job_id: job_id)
     if res.empty?
-      App.create(user_id: user, job_id: job)
+      App.create(user_id: user_id, job_id: job_id, status: 'Applied')
       true
     else
       false
