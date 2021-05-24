@@ -13,7 +13,7 @@ class Api::V1::AppsController < ApplicationController
     else
       render json: {
         status: 500,
-        message: 'You have already applied for the Job'
+        message: 'This Job may have been removed'
       }
     end
   end

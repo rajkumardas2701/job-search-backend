@@ -11,6 +11,8 @@ class Job < ApplicationRecord
   def get_jobs(user)
     if user.user_type == 'Recruiter'
       user.jobs
+    elsif user.user_type == 'Candidate'
+      Job.where.not(id: user.jobs.pluck(:id))
     else
       Job.all
     end
