@@ -11,4 +11,11 @@ class App < ApplicationRecord
       false
     end
   end
+
+  def fetch_apps(user, job_id)
+    job = Job.find(job_id)
+    a = job.users.pluck(:id)
+    a.delete(user.id)
+    applicants = User.where(id: a)
+  end
 end

@@ -1,7 +1,20 @@
 class Api::V1::AppsController < ApplicationController
-  def index; end
+  def index
+    
+  end
 
-  def show; end
+  def show
+    job_id = params[:id].to_i
+    ap = App.new
+    applicants = ap.fetch_apps(set_user, job_id)
+    if applicants
+      render json: {
+        status: 200,
+        message: 'Server returned with 200',
+        applicants: applicants
+      }
+    end
+  end
 
   def create
     ap = App.new(app_params)
