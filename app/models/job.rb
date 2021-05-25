@@ -17,4 +17,16 @@ class Job < ApplicationRecord
       Job.all
     end
   end
+
+  def remove_apps(id)
+    apps = App.where(job_id: id)
+    if apps.length() > 0
+      apps.each do |app|
+        app.delete
+      end
+      true
+    else
+      false
+    end
+  end
 end

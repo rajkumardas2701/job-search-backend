@@ -52,7 +52,21 @@ class Api::V1::JobsController < ApplicationController
 
   def update; end
 
-  def destroy; end
+  def destroy
+    jb = Job.new
+    if jb.remove_apps(@job.id)
+      @job.destroy
+      render json: {
+        status: 200,
+        message: 'Job is deleted'
+      }
+    else
+      render json: {
+        status: 500,
+        message: 'Job couldn\'t be deleted'
+      }
+    end
+  end
 
   private
 
