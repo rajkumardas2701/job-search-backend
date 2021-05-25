@@ -8,8 +8,12 @@ RSpec.describe App, type: :model do
 
   describe "class methods" do
     describe "app_add" do
-      it "should return true if App is created"
-      it "should return false if App already exist"
+      it "should return true if App is created" do
+        
+      end
+
+      it "should return false if App already exist" do
+      end
     end
 
     describe "fetch_apps" do
