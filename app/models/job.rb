@@ -9,9 +9,10 @@ class Job < ApplicationRecord
   end
 
   def get_jobs(user)
-    if user.user_type == 'Recruiter'
+    case user.user_type
+    when 'Recruiter'
       user.jobs
-    elsif user.user_type == 'Candidate'
+    when 'Candidate'
       Job.where.not(id: user.jobs.pluck(:id))
     else
       Job.all
@@ -20,10 +21,8 @@ class Job < ApplicationRecord
 
   def remove_apps(id)
     apps = App.where(job_id: id)
-    if apps.length() > 0
-      apps.each do |app|
-        app.delete
-      end
+    if apps.length.positive?
+      apps.each(&:delete)
       true
     else
       false

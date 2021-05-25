@@ -16,6 +16,6 @@ class App < ApplicationRecord
     job = Job.find(job_id)
     a = job.users.pluck(:id)
     a.delete(user.id)
-    applicants = User.where(id: a)
+    User.where(id: a)
   end
 end
