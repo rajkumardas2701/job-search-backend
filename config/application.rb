@@ -38,5 +38,14 @@ module JobSearchBackend
     config.api_only = false
     config.middleware.use ActionDispatch::Cookies    
     config.middleware.use ActionDispatch::Session::CookieStore
+    config.generators do |g|
+      g.test_framework :rspec,
+        :fixtures => false,
+        :view_specs => false,
+        :helper_specs => false,
+        :routing_specs => false,
+        :controller_specs => true,
+        :request_specs => false
+    end
   end
 end
