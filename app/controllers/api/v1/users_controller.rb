@@ -3,16 +3,24 @@ class Api::V1::UsersController < ApplicationController
 
   def index
     @users = User.all
-    if @users
-      render json: {
-        users: @users
-      }
+    if logged_in?
+      if @users
+        render json: {
+          users: @users
+        }
+      else
+        render json: {
+          status: 404,
+          errors: ['User not found']
+        }
+      end
     else
       render json: {
-        status: 404,
-        errors: ['User not found']
-      }
+          status: 401,
+          errors: ['Unauthorized access']
+        }
     end
+    
   end
 
   def show

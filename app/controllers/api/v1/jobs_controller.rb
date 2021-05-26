@@ -2,19 +2,27 @@ class Api::V1::JobsController < ApplicationController
   before_action :set_job, only: %i[show update destroy]
   def index
     @jobs = Job.all
-    if @jobs
-      j = Job.new
-      filtered = j.get_jobs(set_user)
-      render json: {
-        status: 200,
-        jobs: filtered
-      }
+    if logged_in?
+      if @jobs
+        j = Job.new
+        filtered = j.get_jobs(set_user)
+        render json: {
+          status: 200,
+          jobs: filtered
+        }
+      else
+        render json: {
+          status: 404,
+          message: 'No Job to show'
+        }
+      end
     else
       render json: {
-        status: 404,
-        message: 'No Job to show'
-      }
+          status: 401,
+          errors: ['Unauthorized access']
+        }
     end
+    
   end
 
   def show
