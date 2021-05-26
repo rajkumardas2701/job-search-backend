@@ -33,11 +33,11 @@ group :development, :test do
 end
 
 group :test do
-  gem 'rspec-rails'
   gem 'capybara'
-  gem 'shoulda-matchers', '~>3.1'
-  gem 'launchy'
   gem 'database_cleaner'
+  gem 'launchy'
+  gem 'rspec-rails'
+  gem 'shoulda-matchers', '~>3.1'
 end
 
 group :development do
