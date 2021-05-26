@@ -18,24 +18,30 @@ class Api::V1::JobsController < ApplicationController
       end
     else
       render json: {
-          status: 401,
-          errors: ['Unauthorized access']
-        }
+        status: 401,
+        errors: ['Unauthorized access']
+      }
     end
-    
   end
 
   def show
-    if @job
-      render json: {
-        job: @job,
-        status: 200,
-        message: 'Job fetched successfully'
-      }
+    if logged_in?
+      if @job
+        render json: {
+          job: @job,
+          status: 200,
+          message: 'Job fetched successfully'
+        }
+      else
+        render json: {
+          status: 404,
+          message: 'Could not find that job'
+        }
+      end
     else
       render json: {
-        status: 404,
-        message: 'Could not find that job'
+        status: 401,
+        errors: ['Unauthorized access']
       }
     end
   end

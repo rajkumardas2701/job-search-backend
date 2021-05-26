@@ -16,22 +16,28 @@ class Api::V1::UsersController < ApplicationController
       end
     else
       render json: {
-          status: 401,
-          errors: ['Unauthorized access']
-        }
+        status: 401,
+        errors: ['Unauthorized access']
+      }
     end
-    
   end
 
   def show
-    if @user
-      render json: {
-        user: @user
-      }
+    if logged_in?
+      if @user
+        render json: {
+          user: @user
+        }
+      else
+        render json: {
+          status: 404,
+          errors: ['User not found']
+        }
+      end
     else
       render json: {
-        status: 404,
-        errors: ['User not found']
+        status: 401,
+        errors: ['Unauthorized access']
       }
     end
   end
