@@ -51,3 +51,4 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'bcrypt', '~> 3.1.7'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rubocop', '>= 1.0', '< 2.0'
+gem 'rails_same_site_cookie', '~> 0.1.8'
