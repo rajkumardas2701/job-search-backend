@@ -34,10 +34,10 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'database_cleaner'
   gem 'launchy'
   gem 'rspec-rails'
   gem 'shoulda-matchers', '~>3.1'
-  gem 'database_cleaner'
 end
 
 group :development do
@@ -51,5 +51,5 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'bcrypt', '~> 3.1.7'
 gem 'rack-cors', require: 'rack/cors'
-gem 'rubocop', '>= 1.0', '< 2.0'
 gem 'rails_same_site_cookie', '~> 0.1.8'
+gem 'rubocop', '>= 1.0', '< 2.0'
