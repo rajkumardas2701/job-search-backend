@@ -37,6 +37,7 @@ group :test do
   gem 'launchy'
   gem 'rspec-rails'
   gem 'shoulda-matchers', '~>3.1'
+  gem 'database_cleaner'
 end
 
 group :development do
