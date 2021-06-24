@@ -20,12 +20,7 @@ class Job < ApplicationRecord
   end
 
   def remove_apps(id)
-    apps = App.where(job_id: id)
-    if apps.length.positive?
-      apps.each(&:delete)
-      true
-    else
-      false
-    end
+    App.where(job_id: id).destroy_all
+    true
   end
 end
