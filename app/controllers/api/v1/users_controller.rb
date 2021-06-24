@@ -12,13 +12,15 @@ class Api::V1::UsersController < ApplicationController
         render json: {
           status: 404,
           errors: ['User not found']
-        }
+        },
+               status: 404
       end
     else
       render json: {
         status: 401,
         errors: ['Unauthorized access']
-      }
+      },
+             status: 401
     end
   end
 
@@ -27,18 +29,21 @@ class Api::V1::UsersController < ApplicationController
       if @user
         render json: {
           user: @user
-        }
+        },
+               status: 200
       else
         render json: {
           status: 404,
           errors: ['User not found']
-        }
+        },
+               status: 404
       end
     else
       render json: {
         status: 401,
         errors: ['Unauthorized access']
-      }
+      },
+             status: 401
     end
   end
 
@@ -50,12 +55,14 @@ class Api::V1::UsersController < ApplicationController
         status: :created,
         user: @user,
         message: ['User is created']
-      }
+      },
+             status: 200
     else
       render json: {
         errors: @user.errors.full_messages,
         status: 500
-      }
+      },
+             status: 500
     end
   end
 
@@ -64,12 +71,14 @@ class Api::V1::UsersController < ApplicationController
       render json: {
         user: @user,
         status: 200
-      }
+      },
+             status: 200
     else
       render json: {
         errors: @user.errors.full_messages,
         status: :unprocessable_entity
-      }
+      },
+             status: :unprocessable_entity
     end
   end
 
@@ -79,12 +88,14 @@ class Api::V1::UsersController < ApplicationController
       render json: {
         status: 200,
         message: `#{user.fullname}'s account has been deleted`
-      }
+      },
+             status: 200
     else
       render json: {
         status: 500,
         message: 'Account deletion failed'
-      }
+      },
+             status: 500
     end
   end
 

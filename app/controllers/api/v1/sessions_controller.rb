@@ -8,7 +8,8 @@ class Api::V1::SessionsController < ApplicationController
                      message: ['User has logged in successfully'] }
     else
       render json: { status: 401,
-                     errors: ['Invalid Username or Password'] }
+                     errors: ['Invalid Username or Password'] },
+             status: 401
     end
   end
 
