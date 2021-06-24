@@ -8,7 +8,5 @@ Rails.application.routes.draw do
       get 'logged_in', to: 'sessions#check_logged_in?', as: 'logged_in'
     end
   end
-
-  root to: 'home#index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
