@@ -4,7 +4,7 @@ class Api::V1::SessionsController < ApplicationController
     if @user&.authenticate(session_params[:password])
       login!
       render json: { logged_in: true,
-                     user: @user,
+                     user: @user.attributes.except('password_digest'),
                      message: ['User has logged in successfully'] }
     else
       render json: { status: 401,
@@ -17,7 +17,7 @@ class Api::V1::SessionsController < ApplicationController
     if logged_in? && current_user
       render json: {
         logged_in: true,
-        user: current_user
+        user: current_user.attributes.except('password_digest')
       }
     else
       render json: {

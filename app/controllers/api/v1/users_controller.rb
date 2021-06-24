@@ -28,7 +28,7 @@ class Api::V1::UsersController < ApplicationController
     if logged_in?
       if @user
         render json: {
-          user: @user
+          user: @user.attributes.except('password_digest')
         },
                status: 200
       else
@@ -53,23 +53,23 @@ class Api::V1::UsersController < ApplicationController
       login!
       render json: {
         status: :created,
-        user: @user,
+        user: @user.attributes.except('password_digest'),
         message: ['User is created']
       },
              status: 200
     else
       render json: {
         errors: @user.errors.full_messages,
-        status: 500
+        status: 403
       },
-             status: 500
+             status: 403
     end
   end
 
   def update
     if @user.update(user_params)
       render json: {
-        user: @user,
+        user: @user.attributes.except('password_digest'),
         status: 200
       },
              status: 200
