@@ -13,20 +13,6 @@ class Api::V1::SessionsController < ApplicationController
     end
   end
 
-  def check_logged_in?
-    if logged_in? && current_user
-      render json: {
-        logged_in: true,
-        user: current_user.attributes.except('password_digest')
-      }
-    else
-      render json: {
-        logged_in: false,
-        message: ['No such user']
-      }
-    end
-  end
-
   def destroy
     logout!
     render json: {
