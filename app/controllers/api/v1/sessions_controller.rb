@@ -4,25 +4,12 @@ class Api::V1::SessionsController < ApplicationController
     if @user&.authenticate(session_params[:password])
       login!
       render json: { logged_in: true,
-                     user: @user,
+                     user: @user.attributes.except('password_digest'),
                      message: ['User has logged in successfully'] }
     else
       render json: { status: 401,
-                     errors: ['Invalid Username or Password'] }
-    end
-  end
-
-  def check_logged_in?
-    if logged_in? && current_user
-      render json: {
-        logged_in: true,
-        user: current_user
-      }
-    else
-      render json: {
-        logged_in: false,
-        message: ['No such user']
-      }
+                     errors: ['Invalid Username or Password'] },
+             status: 401
     end
   end
 
