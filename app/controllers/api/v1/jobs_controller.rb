@@ -1,47 +1,34 @@
 class Api::V1::JobsController < ApplicationController
+  before_action :authorize_request
   before_action :set_job, only: %i[show update destroy]
   def index
     @jobs = Job.all
-    if logged_in?
-      if @jobs
-        j = Job.new
-        filtered = j.get_jobs(set_user)
-        render json: {
-          status: 200,
-          jobs: filtered
-        }
-      else
-        render json: {
-          status: 404,
-          message: 'No Job to show'
-        }
-      end
+    if @jobs
+      j = Job.new
+      filtered = j.get_jobs(set_user)
+      render json: {
+        status: 200,
+        jobs: filtered
+      }
     else
       render json: {
-        status: 401,
-        errors: ['Unauthorized access']
+        status: 404,
+        message: 'No Job to show'
       }
     end
   end
 
   def show
-    if logged_in?
-      if @job
-        render json: {
-          job: @job,
-          status: 200,
-          message: 'Job fetched successfully'
-        }
-      else
-        render json: {
-          status: 404,
-          message: 'Could not find that job'
-        }
-      end
+    if @job
+      render json: {
+        job: @job,
+        status: 200,
+        message: 'Job fetched successfully'
+      }
     else
       render json: {
-        status: 401,
-        errors: ['Unauthorized access']
+        status: 404,
+        message: 'Could not find that job'
       }
     end
   end

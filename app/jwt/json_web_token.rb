@@ -9,8 +9,9 @@ class JsonWebToken
   def self.decode(token)
     body = JWT.decode(token, JWT_SECRET)[0]
     HashWithIndifferentAccess.new body
-  # rescue JWT::ExpiredSignature, JWT::VerificationError => e
-  #   raise ExceptionHandler::ExpiredSignature, e.message
+    # JWT::VerificationError
+  rescue JWT::ExpiredSignature => e
+    raise ExceptionHandler::ExpiredSignature, e.message
   rescue JWT::DecodeError, JWT::VerificationError => e
     raise ExceptionHandler::DecodeError, e.message
   end

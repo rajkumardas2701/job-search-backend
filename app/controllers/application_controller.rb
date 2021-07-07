@@ -1,30 +1,34 @@
 class ApplicationController < ActionController::API
   include ExceptionHandler
-  # skip_before_action :verify_authenticity_token
+  def authorize_request
+    return if logged_in?
 
-  # helper_method :login!, :logged_in?, :current_user, :authorized_user?, :logout!, :set_user
+    render json: {
+      message: 'Please log in'
+    },
+           status: :unauthorized
+  end
 
-  # def login!
-  #   session[:user_id] = @user.id
-  # end
+  def logged_in?
+    authorization_object = Authorization.new(request)
+    !!authorization_object.current_user
+  end
 
-  # def logged_in?
-  #   !!session[:user_id]
-  # end
+  def login(params, type)
+    auth_object = Authentication.new(params)
+    if type == 'auth'
+      auth_object.authenticate
+    else
+      auth_object.generate_token
+    end
+  end
 
-  # def current_user
-  #   @current_user ||= User.find(session[:user_id]) if session[:user_id]
-  # end
+  def current_user
+    authorization_object = Authorization.new(request)
+    authorization_object.current_user
+  end
 
-  # def authorized_user?
-  #   @user == current_user
-  # end
-
-  # def logout!
-  #   session.clear
-  # end
-
-  # def set_user
-  #   @user = User.find_by(id: session[:user_id])
-  # end
+  def set_user
+    User.find(current_user)
+  end
 end

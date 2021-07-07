@@ -1,4 +1,5 @@
 class Api::V1::AppsController < ApplicationController
+  before_action :authorize_request
   def index; end
 
   def show

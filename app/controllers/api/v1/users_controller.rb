@@ -1,26 +1,19 @@
 class Api::V1::UsersController < ApplicationController
+  before_action :authorize_request, except: :create
   before_action :check_user, only: %i[show update destroy]
 
   def index
     @users = User.all
-    if logged_in?
-      if @users
-        render json: {
-          users: @users
-        }
-      else
-        render json: {
-          status: 404,
-          errors: ['User not found']
-        },
-               status: 404
-      end
+    if @users
+      render json: {
+        users: @users
+      }
     else
       render json: {
-        status: 401,
-        errors: ['Unauthorized access']
+        status: 404,
+        errors: ['User not found']
       },
-             status: 401
+             status: 404
     end
   end
 
@@ -50,11 +43,12 @@ class Api::V1::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      login!
+      login(user_params, 'auth')
       render json: {
         status: :created,
         user: @user.attributes.except('password_digest'),
-        message: ['User is created']
+        message: ['User is created'],
+        token: login(user_params, 'token')
       },
              status: 200
     else
