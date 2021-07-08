@@ -1,5 +1,4 @@
 class JsonWebToken
-  # JWT_SECRET = ENV['JWT_SECRET']
   JWT_SECRET = Rails.application.secrets.secret_key_base.to_s
 
   def self.encode(payload, exp = 24.hours.from_now)
@@ -10,7 +9,6 @@ class JsonWebToken
   def self.decode(token)
     body = JWT.decode(token, JWT_SECRET)[0]
     HashWithIndifferentAccess.new body
-    # JWT::VerificationError
   rescue JWT::ExpiredSignature => e
     raise ExceptionHandler::ExpiredSignature, e.message
   rescue JWT::DecodeError, JWT::VerificationError => e
